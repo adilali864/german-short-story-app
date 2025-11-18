@@ -1,13 +1,42 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-const API = "http://localhost:4000/api";
+const API = import.meta.env.VITE_API;
 
-function Paragraph({ text }) {
+const HighlightGerman = ({ text }) => {
+  const regex = /(\b[A-Za-zÄÖÜäöüß]+)\s*\(([^)]+)\)/g;
+
+  const parts = [];
+  let lastIndex = 0;
+  let match;
+
+  while ((match = regex.exec(text)) !== null) {
+    const [fullMatch, germanWord, meaning] = match;
+
+    parts.push(text.slice(lastIndex, match.index));
+
+    parts.push(
+      <span key={match.index} className="font-medium text-blue-700">
+        {germanWord}
+        <span className="text-blue-500"> ({meaning})</span>
+      </span>
+    );
+
+    lastIndex = regex.lastIndex;
+  }
+
+  parts.push(text.slice(lastIndex));
+
+  return <>{parts}</>;
+};
+
+const Paragraph = ({ text }) => {
   return (
-    <p className="text-lg leading-8 text-slate-700 mb-6 font-serif">{text}</p>
+    <p className="text-lg leading-8 text-slate-700 mb-6 font-serif">
+      <HighlightGerman text={text} />
+    </p>
   );
-}
+};
 
 const StoryPage = () => {
   const { slug } = useParams();
