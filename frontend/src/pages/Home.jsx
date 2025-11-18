@@ -31,10 +31,8 @@ const Home = () => {
   }
 
   return (
-    // THE MAGIC: snap-y snap-mandatory creates the "Reels" effect
     <div className="h-full w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth no-scrollbar">
-      {/* Floating Header for Home Page */}
-      <div className="absolute top-0 left-0 w-full z-10 p-6 bg-gradient-to-b from-black/60 to-transparent pointer-events-none">
+      <div className="absolute top-0 left-0 w-full z-10 p-6 bg-linear-to-b from-black/60 to-transparent pointer-events-none">
         <h1 className="text-white font-bold text-xl">Discover</h1>
         <p className="text-white/80 text-xs">German words in context</p>
       </div>
@@ -49,7 +47,6 @@ const Home = () => {
             <StoryCard s={s} key={s.slug} />
           ))}
 
-          {/* Optional: Duplicate list for longer scroll feel if needed */}
           {stories.map((s) => (
             <StoryCard s={s} key={`${s.slug}-b`} />
           ))}

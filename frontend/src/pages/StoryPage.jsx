@@ -3,18 +3,9 @@ import { Link, useParams } from "react-router-dom";
 
 const API = "http://localhost:4000/api";
 
-// A helper to make the text look nicer.
-// In a real app, you might parse HTML or specific markers (like [word]).
-// Here, I just render the text with high readability styles.
 function Paragraph({ text }) {
   return (
-    <p className="text-lg leading-8 text-slate-700 mb-6 font-serif">
-      {/* If your backend sends <b> tags for german words, 
-           use dangerouslySetInnerHTML. Otherwise, just render text.
-           Example: <span dangerouslySetInnerHTML={{ __html: text }} />
-        */}
-      {text}
-    </p>
+    <p className="text-lg leading-8 text-slate-700 mb-6 font-serif">{text}</p>
   );
 }
 
@@ -57,16 +48,14 @@ const StoryPage = () => {
 
   return (
     <article className="h-full overflow-y-auto bg-white pb-20">
-      {/* Hero Image */}
       <div className="relative w-full h-64">
         <img
           src={story.heroImageUrl || story.coverImageUrl}
           alt={story.title}
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-white via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-linear-to-t from-white via-transparent to-transparent" />
 
-        {/* Floating Back Button */}
         <Link
           to="/"
           className="absolute top-4 left-4 bg-white/80 backdrop-blur p-2 rounded-full shadow-sm z-10"
@@ -88,7 +77,6 @@ const StoryPage = () => {
       </div>
 
       <div className="max-w-xl mx-auto px-6 -mt-12 relative z-10">
-        {/* Title Card */}
         <div className="bg-white rounded-2xl shadow-xl shadow-slate-200/50 p-6 mb-8 border border-slate-50">
           <div className="flex justify-between items-start mb-4">
             <span className="bg-amber-100 text-amber-800 text-xs font-bold px-2 py-1 rounded uppercase">
@@ -101,14 +89,12 @@ const StoryPage = () => {
           <p className="text-slate-500 text-sm">{story.description}</p>
         </div>
 
-        {/* Story Content */}
         <div className="prose prose-slate prose-lg max-w-none">
           {paragraphs.map((p, i) => (
             <Paragraph key={i} text={p} />
           ))}
         </div>
 
-        {/* Footer/Next Steps */}
         <div className="mt-12 pt-8 border-t border-slate-100 text-center">
           <p className="text-slate-400 text-sm italic">Great job reading!</p>
           <Link

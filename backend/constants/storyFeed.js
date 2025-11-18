@@ -1,6 +1,7 @@
 import "dotenv/config";
 import { connectDB } from "../db/db.js";
 import { Story } from "../model/story.model.js";
+import cloudinary from "../config/cloudinary.js";
 
 const storyFeed = async () => {
   await connectDB();
@@ -26,13 +27,17 @@ const storyFeed = async () => {
     "From a poor nurse in India to a highly qualified specialist in Germany with multiple properties, Akshay's life became proof that with gut (good) planning, dedication, and the courage to keep going, dreams do come true.",
   ].join("\n\n");
 
+  const imageRes = await cloudinary.uploader.upload(
+    "https://images.unsplash.com/photo-1551510438-c2dbb355cc6f?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+  );
+
   const document = await Story.create({
     slug,
     title: "Akshay's Journey to Deutschland",
     description:
       "A nurse from India who learns Deutsch and builds a new life in Germany.",
-    coverImageUrl: "",
-    heroImageUrl: "",
+    coverImageUrl: imageRes.secure_url,
+    heroImageUrl: imageRes.secure_url,
     story: storyText,
   });
 
