@@ -20,6 +20,10 @@ app.use(
 
 app.use("/api/stories", storyRoutes);
 
+app.get("/", (req, res) => {
+  res.send("backend working fine!");
+});
+
 connectDB().then(() => {
   app.listen(PORT, () => {
     console.log("Server running at port: ", PORT);
