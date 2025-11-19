@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import StoryCard from "../components/StoryCard.jsx";
 
 const API = import.meta.env.VITE_API;
@@ -37,15 +37,24 @@ const Home = () => {
         <p className="text-white/80 text-xs">German words in context</p>
       </div>
 
-      {stories?.length === 0 ? (
+      {stories.length === 0 ? (
         <div className="h-full flex items-center justify-center text-slate-500">
           No stories yet.
         </div>
       ) : (
         <>
-          {stories.map((s) => (
-            <StoryCard s={s} key={s.slug} />
-          ))}
+          {stories.map((s, i) => {
+            const isLast = i === stories.length - 1;
+
+            return (
+              <StoryCard
+                key={s.slug}
+                s={s}
+                isLast={isLast}
+                showOverlay={true}
+              />
+            );
+          })}
         </>
       )}
     </div>

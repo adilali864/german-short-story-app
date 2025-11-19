@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-const StoryCard = ({ s }) => {
+const StoryCard = ({ s, isLast, showOverlay }) => {
   return (
     <div className="relative h-full w-full snap-start shrink-0 bg-slate-900 text-white overflow-hidden">
       <img
@@ -15,11 +15,9 @@ const StoryCard = ({ s }) => {
       <div className="absolute inset-0 bg-linear-to-b from-black/30 via-transparent to-black/90" />
 
       <div className="absolute bottom-0 left-0 w-full p-6 pb-10 flex flex-col gap-3 z-10">
-        <div className="flex items-center gap-2">
-          <span className="bg-white/20 backdrop-blur-sm text-white text-[10px] font-medium px-2 py-1 rounded">
-            5 min read
-          </span>
-        </div>
+        <span className="bg-white/20 backdrop-blur-sm text-white text-[10px] font-medium px-2 py-1 rounded w-18">
+          5 min read
+        </span>
 
         <h2 className="text-3xl font-bold leading-tight shadow-black drop-shadow-md">
           {s.title}
@@ -49,6 +47,37 @@ const StoryCard = ({ s }) => {
           </svg>
         </Link>
       </div>
+
+      {showOverlay && (
+        <div className="absolute inset-0 flex flex-col items-end pr-5 justify-start pt-5 pointer-events-none">
+          {!isLast && (
+            <>
+              <button className="bg-white/90 text-slate-900 shadow-lg px-4 py-2 rounded-full flex items-center gap-1 animate-bounce backdrop-blur-md pointer-events-auto">
+                <span className="text-sm font-medium">Scroll</span>
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M12 5v14m0 0l-6-6m6 6l6-6" />
+                </svg>
+              </button>
+              <p className="text-xs text-white/80 mt-2">More stories below</p>
+            </>
+          )}
+
+          {isLast && (
+            <div className="bg-white/90 text-slate-900 shadow-lg px-4 py-2 rounded-full backdrop-blur-md animate-pulse">
+              <span className="text-sm font-semibold">That's all for now 🎉</span>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };
