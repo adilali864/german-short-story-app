@@ -1,8 +1,12 @@
 import { Link } from "react-router-dom";
 
-const StoryCard = ({ s, isLast, showOverlay }) => {
+const StoryCard = ({ s, isLast, showOverlay, isFirst, showBounce }) => {
   return (
-    <div className="relative h-full w-full snap-start shrink-0 bg-slate-900 text-white overflow-hidden">
+    <div
+      className={`relative size-full bg-slate-900 text-white overflow-hidden z-10 ${
+        showBounce ? "animate-bounce-up" : ""
+      }`}
+    >
       <img
         src={
           s.coverImageUrl ||
@@ -73,7 +77,9 @@ const StoryCard = ({ s, isLast, showOverlay }) => {
 
           {isLast && (
             <div className="bg-white/90 text-slate-900 shadow-lg px-4 py-2 rounded-full backdrop-blur-md animate-pulse">
-              <span className="text-sm font-semibold">That's all for now 🎉</span>
+              <span className="text-sm font-semibold">
+                That's all for now 🎉
+              </span>
             </div>
           )}
         </div>
