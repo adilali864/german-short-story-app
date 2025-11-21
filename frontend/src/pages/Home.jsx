@@ -12,7 +12,7 @@ const Home = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowBounce(false);
-    }, 3000);
+    }, 4000);
     return () => clearTimeout(timer);
   }, []);
 
