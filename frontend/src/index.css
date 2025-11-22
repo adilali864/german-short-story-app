@@ -15,56 +15,11 @@ body {
   color: #0f172a;
 }
 
-.no-scrollbar::-webkit-scrollbar {
+.overflow-y-scroll::-webkit-scrollbar {
   display: none;
 }
 
-.no-scrollbar {
+.overflow-y-scroll {
   -ms-overflow-style: none;
   scrollbar-width: none;
-}
-
-@keyframes bounce-up {
-
-  0% {
-    transform: translateY(0);
-  }
-
-  35% {
-    transform: translateY(-80px);
-  }
-
-  65% {
-    transform: translateY(-80px);
-  }
-
-  100% {
-    transform: translateY(0);
-  }
-}
-
-@keyframes fade-in-out {
-  0% {
-    opacity: 0;
-  }
-
-  35% {
-    opacity: 1;
-  }
-
-  65% {
-    opacity: 1;
-  }
-
-  100% {
-    opacity: 0;
-  }
-}
-
-.animate-bounce-up {
-  animation: bounce-up 2.5s cubic-bezier(0.4, 0.0, 0.2, 1) 0.5s forwards;
-}
-
-.animate-fade-in-out {
-  animation: fade-in-out 2.5s cubic-bezier(0.4, 0.0, 0.2, 1) 0.5s forwards;
 }

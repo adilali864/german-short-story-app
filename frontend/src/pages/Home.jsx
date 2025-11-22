@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import StoryCard from "../components/StoryCard.jsx";
 
 const API = import.meta.env.VITE_API;
@@ -6,15 +6,6 @@ const API = import.meta.env.VITE_API;
 const Home = () => {
   const [stories, setStories] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const [showBounce, setShowBounce] = useState(true);
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowBounce(false);
-    }, 4000);
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     async function load() {
@@ -40,63 +31,59 @@ const Home = () => {
   }
 
   return (
-    <div className="h-screen w-full overflow-y-scroll snap-y snap-mandatory scroll-smooth no-scrollbar">
-      <div className="absolute top-0 left-0 w-full z-12 bg-linear-to-b from-black/60 to-transparent pointer-events-none">
-        <img
-          src="/white_mainlogo.png"
-          alt="logo"
-          className="size-30 ml-5 mt-[-18px]"
-        />
+    <div className="h-screen flex flex-col bg-slate-50">
+      <nav className="bg-white shadow-sm px-6 md:px-12 shrink-0 border-b border-[#9c9c9c]/40">
+        <div className="max-w-7xl mx-auto">
+          <img src="/mainlogo.png" alt="logo" className="h-20 w-20" />
+        </div>
+      </nav>
+
+      <div className="bg-white shadow-sm px-6 md:px-12 py-1 shrink-0">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <a
+            href="#"
+            className="flex items-center gap-2 text-slate-700 hover:text-slate-900 transition"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="m12 19-7-7 7-7" />
+              <path d="M19 12H5" />
+            </svg>
+            <span className="font-medium">Back</span>
+          </a>
+          <h1 className="text-lg font-normal text-[#9c9c9c]">Short Stories</h1>
+        </div>
       </div>
 
-      {stories.length === 0 ? (
-        <div className="h-full flex items-center justify-center text-slate-500">
-          No stories yet.
-        </div>
-      ) : (
-        <>
-          {stories.map((s, i) => {
-            const isLast = i === stories.length - 1;
-            const isFirst = i === 0;
+      <div className="relative shrink-0 h-48 md:h-64 lg:h-80 bg-linear-to-r from-slate-800 to-slate-900 overflow-hidden">
+        <img
+          src={stories[0]?.coverImageUrl || "/hero-placeholder.jpg"}
+          alt="hero"
+          className="size-full object-cover opacity-70"
+        />
+        <div className="absolute inset-x-0 bottom-0 h-1/2 bg-linear-to-t from-white via-white/60 to-transparent" />
+      </div>
 
-            return (
-              <div key={s.slug} className="relative size-full snap-start">
-                <StoryCard
-                  s={s}
-                  isLast={isLast}
-                  isFirst={isFirst}
-                  showBounce={isFirst && showBounce}
-                  showOverlay={true}
-                />
-
-                {isFirst && showBounce && (
-                  <div className="absolute bottom-0 left-0 w-full h-20 flex items-center justify-center animate-fade-in-out z-0 bg-linear-to-br to-[#EDB843] from-white backdrop-blur-xl">
-                    <div className="relative flex items-center gap-2 text-zinc-800  px-8 py-4 rounded-full shadow-2xl border border-black/10">
-                      <div className="absolute inset-0 bg-linear-to-b from-black/20 via-transparent to-transparent rounded-full pointer-events-none" />
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="20"
-                        height="20"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        className="animate-bounce relative z-10"
-                      >
-                        <path d="M12 5v14m0 0l-6-6m6 6l6-6" />
-                      </svg>
-                      <span className="text-sm font-semibold relative z-10 bg-linear-to-r from-black via-slate-800 to-black bg-clip-text">
-                        Scroll for more stories
-                      </span>
-                    </div>
-                  </div>
-                )}
-              </div>
-            );
-          })}
-        </>
-      )}
+      <div className="flex-1 overflow-y-scroll px-4 md:px-8 py-6 max-w-4xl mx-auto bg-white w-full">
+        {stories.length === 0 ? (
+          <div className="text-center text-slate-500 mt-8">No stories yet.</div>
+        ) : (
+          <div className="flex flex-col gap-20">
+            {stories.map((s, idx) => (
+              <StoryCard idx={idx} key={s.slug} s={s} />
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
