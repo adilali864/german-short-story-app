@@ -77,7 +77,7 @@ const Home = () => {
         {stories.length === 0 ? (
           <div className="text-center text-slate-500 mt-8">No stories yet.</div>
         ) : (
-          <div className="flex flex-col gap-20">
+          <div className="flex flex-col gap-80">
             {stories.map((s, idx) => (
               <StoryCard idx={idx} key={s.slug} s={s} />
             ))}
